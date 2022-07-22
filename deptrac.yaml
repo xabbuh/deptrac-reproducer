@@ -1,0 +1,21 @@
+parameters:
+    paths:
+        - src
+    layers:
+        - name: 'legacy code'
+          collectors:
+            - type: 'bool'
+              must:
+                  - type: 'directory'
+                    regex: 'src'
+              must_not:
+                  - type: 'layer'
+                    layer: 'new code'
+        - name: 'new code'
+          collectors:
+            - type: 'classNameRegex'
+              regex: '/.*\\Entity\\.*/'
+
+    ruleset:
+        legacy code:
+            - 'new code'
